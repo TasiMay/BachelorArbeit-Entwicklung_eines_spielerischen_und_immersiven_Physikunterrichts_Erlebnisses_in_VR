@@ -6,6 +6,8 @@ public class Meteorite : MonoBehaviour
 {
     public float speed = 0f;
     public double mass = 0;
+    public bool isCollided = false;
+    private Projectile projectile;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,4 +19,14 @@ public class Meteorite : MonoBehaviour
     {
         
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Projectile")
+        {
+            projectile= collision.gameObject.GetComponent<Projectile>();
+            isCollided = true;
+        }
+    }
+    
 }
