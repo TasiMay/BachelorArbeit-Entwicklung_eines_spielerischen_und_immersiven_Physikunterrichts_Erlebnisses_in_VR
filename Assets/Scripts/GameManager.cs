@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public TMP_Text impactText;
     public TMP_Text CalculatorText;
     public GunController gunController;
+    public Canvas feedbackUI;
+    public TMP_Text feedbackText;
 
     private string textImpact =
         "Der Impuls bereicht sich aus p = m x v. Der Meterorit hat eine Masse m von 100 kg und eine Geschwindigkeit von 0.1 km/h. Wie hoch ist der Impuls? Gebe den Impuls im Taschenrechner ein und überprüfe mich einem Schuss auf dem Meteoriten.";
@@ -20,6 +22,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        feedbackUI.gameObject.SetActive(false);
         impactText.text = textImpact;
     }
 
@@ -46,20 +49,28 @@ public class GameManager : MonoBehaviour
         {
             if (Math.Abs(impact - inputImpact) < 0.01) // Tolerance for floating-point errors
             {
-                Debug.Log("Der Impuls wurde korrekt berechnet.");
                 Destroy(meteorite.gameObject);
+                feedbackText.text = "Gut gemacht!";
             }
             else
             {
-                Debug.Log("Falsche Berechnung des Impulses.");
-                Debug.Log(inputImpact);
-                Debug.Log(impact);
+                feedbackText.text = "Die Berechnung war nicht korrekt.";
             }
+
         }
         else
         {
-            Debug.Log("Ungültige Eingabe im Taschenrechner.");
+            feedbackText.text = "Ungültige Eingabe im Taschenrechner.";
         }
+        
         impactMeteorite.isCollided = false;
+        feedbackUI.gameObject.SetActive(true);
+        StartCoroutine(HideFeedbackAfterDelay(3f));
+    }
+
+    private IEnumerator HideFeedbackAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        feedbackUI.gameObject.SetActive(false);
     }
 }
