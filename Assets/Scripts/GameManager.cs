@@ -7,11 +7,10 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public Canvas ui;
-    public List<Meteorite> meteorites;
+    public List<Meteorite> meteorites; // ToDo For different types of meteorites
     public Meteorite impactMeteorite;
     public TMP_Text impactText;
     public TMP_Text CalculatorText;
-    public GunController gunController;
     public Canvas feedbackUI;
     public TMP_Text feedbackText;
 
@@ -38,7 +37,7 @@ public class GameManager : MonoBehaviour
     private void calcImpact(Meteorite meteorite, Projectile projectile)
     {
         // ToDo Impulserhaltungssatz
-    }
+    } // ToDo calculation for Level 2-4
 
     private void calcImpactMeteorite(Meteorite meteorite)
     {
