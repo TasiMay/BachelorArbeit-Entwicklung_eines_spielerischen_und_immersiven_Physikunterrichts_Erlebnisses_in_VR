@@ -9,11 +9,12 @@ using System.Globalization;
 public class CalculatorController : MonoBehaviour
 {
     public string calculatorText = "";
+
     public TMP_Text textField;
+
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -101,6 +102,7 @@ public class CalculatorController : MonoBehaviour
     {
         calculatorText = "";
     }
+
     public void Equals()
     {
         if (string.IsNullOrWhiteSpace(calculatorText))
@@ -109,7 +111,7 @@ public class CalculatorController : MonoBehaviour
         string[] values = expression.Split(' ');
 
         List<string> tokens = new List<string>(values);
-    
+
         // First pass: Handle multiplication and division
         for (int i = 0; i < tokens.Count; i++)
         {
@@ -121,26 +123,28 @@ public class CalculatorController : MonoBehaviour
                     calculatorText = "Error";
                     return;
                 }
+
                 double result = tokens[i] == "*" ? left * right : (right == 0 ? double.NaN : left / right);
                 if (double.IsNaN(result))
                 {
                     calculatorText = "Error";
                     return;
                 }
+
                 tokens[i - 1] = result.ToString(CultureInfo.InvariantCulture);
                 tokens.RemoveAt(i); // Remove operator
                 tokens.RemoveAt(i); // Remove right operand
                 i--; // Step back to reprocess
             }
         }
-    
+
         // Second pass: Handle addition and subtraction
         if (!double.TryParse(tokens[0], NumberStyles.Any, CultureInfo.InvariantCulture, out double sum))
         {
             calculatorText = "Error";
             return;
         }
-    
+
         for (int i = 1; i < tokens.Count; i += 2)
         {
             string op = tokens[i];
@@ -149,11 +153,10 @@ public class CalculatorController : MonoBehaviour
                 calculatorText = "Error";
                 return;
             }
-        
+
             sum = op == "+" ? sum + num : sum - num;
         }
-    
+
         calculatorText = sum.ToString(CultureInfo.InvariantCulture);
     }
-
 }

@@ -16,8 +16,8 @@ public class GameManager : MonoBehaviour
 
     private string textImpact =
         "Der Impuls bereicht sich aus p = m x v. Der Meterorit hat eine Masse m von 100 kg und eine Geschwindigkeit von 0.1 km/h. Wie hoch ist der Impuls? Gebe den Impuls im Taschenrechner ein und überprüfe mich einem Schuss auf dem Meteoriten.";
-    
-    
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     private void calcImpact(Meteorite meteorite, Projectile projectile)
     {
         // ToDo Impulserhaltungssatz
-    } // ToDo calculation for Level 2-4
+    }
 
     private void calcImpactMeteorite(Meteorite meteorite)
     {
@@ -55,13 +55,12 @@ public class GameManager : MonoBehaviour
             {
                 feedbackText.text = "Die Berechnung war nicht korrekt.";
             }
-
         }
         else
         {
             feedbackText.text = "Ungültige Eingabe im Taschenrechner.";
         }
-        
+
         impactMeteorite.isCollided = false;
         feedbackUI.gameObject.SetActive(true);
         StartCoroutine(HideFeedbackAfterDelay(3f));
